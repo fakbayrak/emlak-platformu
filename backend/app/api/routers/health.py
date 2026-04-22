@@ -1,4 +1,5 @@
 """Sağlık kontrol uç noktası."""
+
 from fastapi import APIRouter
 
 router = APIRouter()

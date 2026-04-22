@@ -2,6 +2,7 @@
 Emlak Platformu — FastAPI uygulaması
 Ana giriş noktası.
 """
+
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI

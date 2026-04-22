@@ -4,7 +4,7 @@ Formül:
     score = 100 × (w1·yield + w2·stability + w3·liquidity
                    + w4·appreciation + w5·affordability)
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict
 
 import numpy as np

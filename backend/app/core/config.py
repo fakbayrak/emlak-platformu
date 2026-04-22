@@ -2,6 +2,7 @@
 Uygulama yapılandırması.
 Pydantic Settings ile .env dosyasından ortam değişkenlerini yükler.
 """
+
 from typing import List
 
 from pydantic_settings import BaseSettings, SettingsConfigDict

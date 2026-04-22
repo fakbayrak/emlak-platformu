@@ -1,4 +1,5 @@
 """İlan listeleme ve benzer ilan uç noktaları (M6)."""
+
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
@@ -47,7 +48,9 @@ def get_listing(listing_id: int, db: Session = Depends(get_db)):
     return listing
 
 
-@router.get("/similar/{listing_id}", response_model=list[SimilarListing], summary="Benzer ilanlar (M6)")
+@router.get(
+    "/similar/{listing_id}", response_model=list[SimilarListing], summary="Benzer ilanlar (M6)"
+)
 def similar_listings(listing_id: int, limit: int = 10, db: Session = Depends(get_db)):
     service = RecommenderService(db=db)
     return service.find_similar(listing_id=listing_id, limit=limit)

@@ -1,4 +1,5 @@
 """Enflasyon düzeltmesi servisi."""
+
 from datetime import datetime
 from typing import Optional
 
@@ -25,11 +26,7 @@ class InflationService:
         return row.cpi if row else None
 
     def get_latest_cpi(self) -> Optional[float]:
-        row = (
-            self.db.query(EconomicIndicator)
-            .order_by(desc(EconomicIndicator.year_month))
-            .first()
-        )
+        row = self.db.query(EconomicIndicator).order_by(desc(EconomicIndicator.year_month)).first()
         return row.cpi if row else None
 
     def nominal_to_real(self, nominal_price: float, listing_date: datetime) -> float:

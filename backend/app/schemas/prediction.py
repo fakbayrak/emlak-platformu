@@ -1,4 +1,5 @@
 """Tahmin uç noktaları için Pydantic şemaları."""
+
 from typing import List, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -25,6 +26,7 @@ class HouseFeatures(BaseModel):
 
 class SHAPFeature(BaseModel):
     """Tek bir özelliğin SHAP katkısı."""
+
     name: str
     contribution_tl: float
     direction: str  # "+" veya "-"
@@ -32,9 +34,12 @@ class SHAPFeature(BaseModel):
 
 class PredictionResponse(BaseModel):
     """Tahmin yanıtı."""
+
     model_config = ConfigDict(protected_namespaces=())
 
-    predicted_price_nominal: float = Field(..., description="Güncel aya enflasyonla şişirilmiş fiyat (TL)")
+    predicted_price_nominal: float = Field(
+        ..., description="Güncel aya enflasyonla şişirilmiş fiyat (TL)"
+    )
     predicted_price_real: float = Field(..., description="Reel (deflate edilmiş) fiyat (TL)")
     confidence_interval: Optional[List[float]] = Field(None, description="[alt, üst] tahmin bandı")
     model_version: str
@@ -44,12 +49,14 @@ class PredictionResponse(BaseModel):
 
 class DealAnalysisRequest(BaseModel):
     """Fırsat analizi isteği."""
+
     features: HouseFeatures
     asking_price: float = Field(..., gt=0, description="İlandaki gerçek fiyat (TL)")
 
 
 class DealAnalysisResponse(BaseModel):
     """Fırsat analizi yanıtı."""
+
     label: DealLabel
     predicted_price: float
     asking_price: float

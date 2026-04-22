@@ -1,4 +1,5 @@
 """Model metrik servisi (M7)."""
+
 from sqlalchemy.orm import Session
 
 from app.db.models import ModelMetric
@@ -10,9 +11,5 @@ class ModelService:
         self.db = db
 
     def list_metrics(self) -> ModelMetricsResponse:
-        rows = (
-            self.db.query(ModelMetric)
-            .order_by(ModelMetric.trained_at.desc())
-            .all()
-        )
+        rows = self.db.query(ModelMetric).order_by(ModelMetric.trained_at.desc()).all()
         return ModelMetricsResponse(total=len(rows), metrics=rows)

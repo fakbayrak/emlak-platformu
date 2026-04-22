@@ -1,4 +1,5 @@
 """Tahmin servisi — ML modelini yükler ve tahmin üretir."""
+
 from functools import lru_cache
 from pathlib import Path
 
@@ -29,7 +30,11 @@ def _load_model(model_type: str):
 
     model = joblib.load(model_path)
     explainer = joblib.load(explainer_path) if Path(explainer_path).exists() else None
-    preprocessor = joblib.load(settings.PREPROCESSOR_PATH) if Path(settings.PREPROCESSOR_PATH).exists() else None
+    preprocessor = (
+        joblib.load(settings.PREPROCESSOR_PATH)
+        if Path(settings.PREPROCESSOR_PATH).exists()
+        else None
+    )
     return model, preprocessor, explainer
 
 

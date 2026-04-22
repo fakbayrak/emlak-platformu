@@ -3,8 +3,16 @@ line-length = 100
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "W", "UP", "N", "B"]
-ignore = ["E501"]
+# Yalnızca gerçek hataları yakala; stil meselelerine takılma.
+select = ["E", "F", "W", "I"]
+ignore = [
+    "E501",  # satır uzunluğu (black zaten halleder)
+    "E402",  # modül seviyesi import sırası (scriptlerde gerekebilir)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401", "F811"]
+"alembic/*" = ["F401", "F811"]
 
 [tool.black]
 line-length = 100

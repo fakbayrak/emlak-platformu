@@ -1,4 +1,5 @@
 """Model metrik uç noktaları için şemalar."""
+
 from datetime import datetime
 from typing import List, Optional
 

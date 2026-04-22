@@ -2,18 +2,18 @@
 SQLAlchemy ORM modelleri.
 Veritabanı şeması ve proje raporunda tanımlanan tablolar.
 """
+
 from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import (
+    JSON,
     Boolean,
     DateTime,
     Float,
     ForeignKey,
     Integer,
-    JSON,
     String,
-    Text,
     func,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -23,6 +23,7 @@ from app.db.session import Base
 
 class Listing(Base):
     """Konut ilanı."""
+
     __tablename__ = "listings"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -49,6 +50,7 @@ class Listing(Base):
 
 class PriceHistory(Base):
     """İlan fiyat geçmişi (fiyat değişiklikleri)."""
+
     __tablename__ = "price_history"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -62,6 +64,7 @@ class PriceHistory(Base):
 
 class EconomicIndicator(Base):
     """Aylık ekonomik göstergeler (TÜFE, KFE, USD/TRY, faiz)."""
+
     __tablename__ = "economic_indicators"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -74,6 +77,7 @@ class EconomicIndicator(Base):
 
 class Prediction(Base):
     """Kullanıcıya döndürülen tahminlerin kaydı."""
+
     __tablename__ = "predictions"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -90,6 +94,7 @@ class Prediction(Base):
 
 class DistrictStats(Base):
     """İlçe bazlı özet istatistikler ve yatırım skoru (nightly job ile güncellenir)."""
+
     __tablename__ = "district_stats"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -101,11 +106,14 @@ class DistrictStats(Base):
     appreciation_12m: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     investment_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     score_components: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(), onupdate=func.now()
+    )
 
 
 class ModelMetric(Base):
     """ML model performans kayıtları (MLflow'a paralel özet)."""
+
     __tablename__ = "model_metrics"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -124,9 +132,10 @@ class ModelMetric(Base):
 
 class SimilarCache(Base):
     """Benzer ilan öneri önbelleği."""
+
     __tablename__ = "similar_cache"
 
     listing_id: Mapped[int] = mapped_column(ForeignKey("listings.id"), primary_key=True)
-    similar_ids: Mapped[list] = mapped_column(JSON)          # [id1, id2, ...]
-    similarity_scores: Mapped[list] = mapped_column(JSON)    # [0.92, 0.88, ...]
+    similar_ids: Mapped[list] = mapped_column(JSON)  # [id1, id2, ...]
+    similarity_scores: Mapped[list] = mapped_column(JSON)  # [0.92, 0.88, ...]
     computed_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

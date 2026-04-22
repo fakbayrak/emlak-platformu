@@ -1,4 +1,5 @@
 """Analitik uç noktaları için Pydantic şemaları."""
+
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -7,6 +8,7 @@ from pydantic import BaseModel
 
 class ScoreComponents(BaseModel):
     """Yatırım skoru bileşenleri."""
+
     yield_score: float
     stability_score: float
     liquidity_score: float
@@ -16,6 +18,7 @@ class ScoreComponents(BaseModel):
 
 class DistrictAnalytics(BaseModel):
     """İlçe özet analizi."""
+
     district: str
     avg_sale_price_per_m2: Optional[float]
     avg_rent_per_m2: Optional[float]
@@ -32,11 +35,13 @@ class DistrictAnalytics(BaseModel):
 
 class DistrictListResponse(BaseModel):
     """Tüm ilçelerin özet listesi."""
+
     total: int
     districts: List[DistrictAnalytics]
 
 
 class DistrictDetailResponse(DistrictAnalytics):
     """İlçe detay — ek olarak trend verileri."""
+
     price_trend: Optional[List[Dict]] = None  # [{"month": "2025-01", "avg_price_per_m2": 35000}]
     rent_trend: Optional[List[Dict]] = None

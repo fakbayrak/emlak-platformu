@@ -1,4 +1,5 @@
 """Satılık ve kiralık fiyat tahmin uç noktaları (M1, M2)."""
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 

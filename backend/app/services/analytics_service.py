@@ -1,4 +1,5 @@
 """İlçe istatistikleri ve yatırım skoru servisi (M4)."""
+
 from sqlalchemy.orm import Session
 
 from app.db.models import DistrictStats
@@ -24,11 +25,7 @@ class AnalyticsService:
         return DistrictListResponse(total=len(districts), districts=districts)
 
     def get_district_detail(self, name: str) -> DistrictDetailResponse | None:
-        row = (
-            self.db.query(DistrictStats)
-            .filter(DistrictStats.district == name)
-            .first()
-        )
+        row = self.db.query(DistrictStats).filter(DistrictStats.district == name).first()
         if not row:
             return None
 

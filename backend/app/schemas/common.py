@@ -1,4 +1,5 @@
 """Ortak enum ve yardımcı tipler."""
+
 from enum import Enum
 
 
@@ -8,6 +9,6 @@ class ListingType(str, Enum):
 
 
 class DealLabel(str, Enum):
-    BARGAIN = "firsat"       # Fırsat (gerçek < tahmin * 0.9)
-    FAIR = "uygun"           # Uygun (tahmin ± %10)
-    EXPENSIVE = "pahali"     # Pahalı (gerçek > tahmin * 1.1)
+    BARGAIN = "firsat"  # Fırsat (gerçek < tahmin * 0.9)
+    FAIR = "uygun"  # Uygun (tahmin ± %10)
+    EXPENSIVE = "pahali"  # Pahalı (gerçek > tahmin * 1.1)

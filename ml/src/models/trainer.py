@@ -5,7 +5,6 @@ from typing import Dict
 import joblib
 import mlflow
 import mlflow.sklearn
-import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 

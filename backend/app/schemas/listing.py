@@ -1,4 +1,5 @@
 """İlan uç noktaları için şemalar."""
+
 from datetime import datetime
 from typing import List, Optional
 
@@ -38,6 +39,7 @@ class ListingRead(ListingBase):
 
 class ListingFilter(BaseModel):
     """Liste filtresi query parametreleri."""
+
     city: Optional[str] = None
     district: Optional[str] = None
     listing_type: Optional[ListingType] = None

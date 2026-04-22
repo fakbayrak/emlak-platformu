@@ -1,4 +1,5 @@
 """Benzer ilan öneri servisi (M6)."""
+
 from typing import List
 
 from sqlalchemy.orm import Session
@@ -13,11 +14,7 @@ class RecommenderService:
 
     def find_similar(self, listing_id: int, limit: int = 10) -> List[SimilarListing]:
         """Cache'den benzer ilanları getirir; cache yoksa boş liste döner."""
-        cache = (
-            self.db.query(SimilarCache)
-            .filter(SimilarCache.listing_id == listing_id)
-            .first()
-        )
+        cache = self.db.query(SimilarCache).filter(SimilarCache.listing_id == listing_id).first()
         if not cache:
             return []
 

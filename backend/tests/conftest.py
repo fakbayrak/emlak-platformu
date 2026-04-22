@@ -1,4 +1,5 @@
 """pytest ortak fixture'ları."""
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

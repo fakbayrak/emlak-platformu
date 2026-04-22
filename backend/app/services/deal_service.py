@@ -1,4 +1,5 @@
 """Fırsat/uygun/pahalı analiz servisi (M3)."""
+
 from sqlalchemy.orm import Session
 
 from app.schemas.common import DealLabel
@@ -9,7 +10,7 @@ from app.services.prediction_service import PredictionService
 class DealService:
     """İlan fiyatını model tahmini ile karşılaştırır."""
 
-    BARGAIN_THRESHOLD = -0.10   # Gerçek fiyat tahmin - %10'dan düşükse fırsat
+    BARGAIN_THRESHOLD = -0.10  # Gerçek fiyat tahmin - %10'dan düşükse fırsat
     EXPENSIVE_THRESHOLD = 0.10  # Gerçek fiyat tahmin + %10'dan yüksekse pahalı
 
     def __init__(self, db: Session):
@@ -27,13 +28,19 @@ class DealService:
 
         if deviation <= self.BARGAIN_THRESHOLD:
             label = DealLabel.BARGAIN
-            explanation = f"İlan fiyatı tahminin %{abs(deviation)*100:.1f} altında. Bu bir fırsat olabilir."
+            explanation = (
+                f"İlan fiyatı tahminin %{abs(deviation)*100:.1f} altında. Bu bir fırsat olabilir."
+            )
         elif deviation >= self.EXPENSIVE_THRESHOLD:
             label = DealLabel.EXPENSIVE
-            explanation = f"İlan fiyatı tahminin %{deviation*100:.1f} üzerinde. Pazarlık yapılabilir."
+            explanation = (
+                f"İlan fiyatı tahminin %{deviation*100:.1f} üzerinde. Pazarlık yapılabilir."
+            )
         else:
             label = DealLabel.FAIR
-            explanation = f"İlan fiyatı tahmine yakın (sapma %{deviation*100:.1f}). Makul görünüyor."
+            explanation = (
+                f"İlan fiyatı tahmine yakın (sapma %{deviation*100:.1f}). Makul görünüyor."
+            )
 
         return DealAnalysisResponse(
             label=label,
