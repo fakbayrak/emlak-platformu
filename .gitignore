@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.vite/
+*.local
+
+# Model & Data
+ml/data/raw/*
+ml/data/processed/*
+ml/data/external/*
+!ml/data/**/.gitkeep
+ml/models/*.pkl
+ml/models/*.joblib
+!ml/models/.gitkeep
+ml/mlruns/*
+!ml/mlruns/.gitkeep
+
+# Scraper outputs
+scraper/*.json
+scraper/*.csv
+scraper/logs/
+
+# Env & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Docker
+.docker/
+
+# Alembic (migration versions tutulur, cache tutulmaz)

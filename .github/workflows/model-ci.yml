@@ -1,0 +1,37 @@
+name: Model CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths: ["ml/src/**", "ml/scripts/**"]
+  pull_request:
+    paths: ["ml/src/**"]
+
+jobs:
+  ml-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Bağımlılıklar
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ml/requirements.txt
+          pip install pytest
+
+      - name: Lint
+        run: pip install ruff && ruff check ml/src
+
+      - name: Birim testleri (varsa)
+        run: |
+          if [ -d ml/tests ]; then
+            pytest ml/tests
+          else
+            echo "ml/tests henüz yok, atlanıyor."
+          fi
